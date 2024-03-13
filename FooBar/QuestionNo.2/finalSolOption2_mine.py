@@ -45,6 +45,7 @@ def solution(l, t):
         print("End max:", max)
         print("End Sum:", sum(solution), "\n")
         print("End List:", solution)
+        
         print("\n")
         print("---------")
         print("\n")
