@@ -137,7 +137,6 @@ plt.scatter(target.coordinates[0], target.coordinates[1], color='red', label='Po
 plt.scatter(defense.coordinates[0], defense.coordinates[1], color='yellow', label='Point 2')
 plt.scatter(attack.coordinates[0], attack.coordinates[1], color='black', label='Point 3')
 plt.scatter(intercept_point[0], intercept_point[1], color='green', label='Point 4')
-plt.scatter(adjacent_Rcoordinates[0], adjacent_Rcoordinates[1], color='blue', label='Point 5')
 
 plt.plot([attack.coordinates[0], target.coordinates[0]], [attack.coordinates[1], target.coordinates[1]], color='black', linestyle='-', label='Attack to Target')
 plt.plot([defense.coordinates[0], intercept_point[0]], [defense.coordinates[1], intercept_point[1]], color='purple', linestyle='--', label='Defense to Intercept')

@@ -59,7 +59,6 @@ else:
         new_y_val = attack_coords[1] - length*math.sin(theta_rad)
     
 
-
 new_x_val = attack_coords[0] + length*math.cos(theta_rad)
 new_y_val = attack_coords[1] + length*math.sin(theta_rad)
 new_coords = np.array([new_x_val, new_y_val])
