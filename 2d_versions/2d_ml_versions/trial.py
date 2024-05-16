@@ -1,9 +1,11 @@
-import matplotlib.pyplot as plt
- 
-figure, axes = plt.subplots()
-Drawing_colored_circle = plt.Circle(( 0.6 , 0.6 ), 0.2 )
- 
-axes.set_aspect( 1 )
-axes.add_artist( Drawing_colored_circle )
-plt.title( 'Colored Circle' )
-plt.show()
+import time
+
+num_prints = 100  # Number of prints you want
+start_time = time.time()
+
+for _ in range(num_prints):
+    elapsed_time = time.time() - start_time
+
+    print("Start time:", start_time)
+    print("Elapsed time:", elapsed_time)
+    print()  # Print an empty line for separation
