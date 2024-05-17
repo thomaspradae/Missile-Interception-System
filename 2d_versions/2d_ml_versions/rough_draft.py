@@ -105,6 +105,8 @@ class Environment:
             return -100, True
 
     def update_missile_positions(self):
+        self.attack_missile.coordinates[0] += self.attack_missile.speed * self.global_time * math.cos(self.attack_missile.theta)
+        self.attack_missile.coordinates[1] += self.attack_missile.speed * self.global_time * math.sin(self.attack_missile.theta)
         for missile in self.defense_missiles:
             missile.coordinates[0] += missile.speed * missile.missile_clock * math.cos(missile.theta)
             missile.coordinates[1] += missile.speed * missile.missile_clock * math.sin(missile.theta)
@@ -142,15 +144,17 @@ class Environment:
         self.iteration_over = False
         self.episode_over = False
 
-    def step(self, action):
+    def step(self):
         self.global_time += 0.01
+        self.update_missile_positions()
+        self.attack_missile_to_target = self.calculate_distance(self.attack_missile.coordinates, self.target.coordinates)
 
 
 # (0.2) Create the environment. -------------------------------------------------------
 env = Environment()
-print("Environment init time:", env.global_time)
 env.set_episode(env.global_time)
 print("Environment created.")
+print("Environment init time:", env.global_time)
 print("Target coordinates:", env.target.coordinates)
 print("Defense coordinates:", env.defense.coordinates)
 print("Attack coordinates:", env.attack.coordinates)
@@ -162,3 +166,12 @@ print("Attack missile fired time:", env.attack_missile.fired_time)
 print("Defense missiles:", env.defense_missiles)
 print("Global time:", env.global_time)
 
+env.step()
+print("Environment init time:", env.global_time)
+env.update_missile_positions()
+print("Attack missile updated coordinates:", env.attack_missile.coordinates)
+
+for i in range(100):
+    env.step()
+    print("Attack missile updated coordinates:", env.attack_missile.coordinates)
+    print("Environment init time:", env.global_time)
