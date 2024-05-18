@@ -91,12 +91,30 @@ class Missile:
 class Environment:
     def __init__(self):
         self.global_time = 0
-        pass
+        self.state = self.get_state()
+
+        self.action_space = 
+
+    # Let's set it as a dictionary first in order to debug properly
+    def get_state(self):
+        state = {
+            'global_time': self.global_time,
+            'target_coords': self.target.coordinates,
+            'attack_missile_coords': self.attack_missile.coordinates,
+            'attack_missile_theta': self.attack_missile.theta,
+            'distance_attack_missile_to_target': self.calculate_distance()
+
+
+        }
+
 
     def calculate_distance(self, point1, point2):
         np.sqrt(np.sum((point1 - point2) ** 2))
 
     def check_impact(self, missile, target):
+        self.attack_missile_to_target = self.calculate_distance(self.attack_missile.coordinates, target.coordinates)
+        
+        
         for missile in self.defense_missiles:
             if self.calculate_distance(self.attack_missile.coordinates, missile.coordinates) < missile.radius + target.radius:
                 return 100, True
@@ -125,6 +143,8 @@ class Environment:
         self.attack_missile.fire_missile(self.global_time)
 
         self.defense_missiles = []
+
+        self.attack_missile_to_target = self.calculate_distance(self.attack_missile.coordinates, self.target.coordinates)
 
         self.global_time = 0
 
@@ -175,3 +195,4 @@ for i in range(100):
     env.step()
     print("Attack missile updated coordinates:", env.attack_missile.coordinates)
     print("Environment init time:", env.global_time)
+

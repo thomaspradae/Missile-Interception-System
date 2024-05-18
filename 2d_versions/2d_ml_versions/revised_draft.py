@@ -62,21 +62,33 @@ class Point:
     
 
 class Missile:
-    def __init__(self, type, target, attack):
+    def __init__(self, type):
         self.type = type
         self.coordinates = np.array([0, 0])
         self.radius = 0.2
     
-    def create_missile(self, attack):
+    def create_attack_missile(self, attack):
         self.speed = 1
         self.theta = attack.attack_theta_rad
         self.coordinates = attack.coordinates
         self.fired = False
         return self.coordinates, self.theta, self.speed, self.fired
     
-    def fire_missile(self):
+    def fire_missile(self, global_time):
         self.fired = True
-        return self.fired
+        self.fired_time = global_time
+        return self.fired, self.fired_time
+    
+    def create_defense_missile(self, defense, global_time, defense_missiles):
+        self.speed = 1
+        self.theta = None
+        self.coordinates = defense.coordinates
+        self.fired = False
+        self.fired_time = None 
+        self.missile_clock = global_time - self.fired_time
+        self.append(defense_missiles)
+
+
         
 
 
@@ -84,9 +96,26 @@ class Missile:
 
 class Environment:
     def __init__(self):
+        self.global_time = 0
         pass
 
-    def reset(self):
+    def calculate_distance(self, point1, point2):
+        np.sqrt(np.sum((point1 - point2) ** 2))
+
+    def check_impact(self, missile, target):
+        for missile in self.defense_missiles:
+            if self.calculate_distance(self.attack_missile.coordinates, missile.coordinates) < missile.radius + target.radius:
+                return 100, True
+            
+        if self.calculate_distance(self.attack_missile.coordinates, target.coordinates) < missile.radius + target.radius:
+            return -100, True
+
+    def update_missile_positions(self):
+        for missile in self.defense_missiles:
+            missile.coordinates[0] += missile.speed * missile.missile_clock * math.cos(missile.theta)
+            missile.coordinates[1] += missile.speed * missile.missile_clock * math.sin(missile.theta)
+    
+    def set_episode(self):
         self.target = Point("target")
         self.defense = Point("defense")
         self.attack = Point("attack")
@@ -99,7 +128,25 @@ class Environment:
         self.attack_missile.create_missile()
         self.attack_missile.fire_missile()
 
+        self.defense_missiles = []
 
-        
-        
-#     def retry():
+        self.global_time = 0
+
+        self.iteration_over = False
+        self.episode_over = False
+
+    # Retrying the iteration is simply resetting the attack and defense missiles (all other points are the same)
+    def retry_iteration(self):
+        self.attack_missile = Missile("attack", self.attack.coordinates, self.target.coordinates)
+        self.attack_missile.create_missile()
+        self.attack_missile.fire_missile()
+
+        self.attack_missiles = []
+
+        self.global_time = 0
+
+        self.iteration_over = False
+        self.episode_over = False
+
+    def step(self, action):
+        self.global_time += 0.01

@@ -41,9 +41,29 @@ class Point:
         self.coordinates = random.choice([y_below_x_inclusive, y_above_x_inclusive, x_left_y_inclusive, x_right_y_inclusive])
         return self.coordinates
 
+class Missile:
+    def __init__(self, type):
+        self.type = type
+        self.coordinates = np.array([0, 0])
+        self.radius = 0.2
+
+    def create_attack_missile(self, attack, target):
+        self.speed = 1
+        self.theta = attack.theta
+        self.coordinates = attack.coordinates
+        self.fired = False
+        return self.coordinates, self.theta
+    
+    def fire_missile(self):
+        self.fired = True
+        return self.fired
+    
+
+
 
 class Environment:
     def __init__(self):
+        self.start_environment = True
         self.target = Point("target")
         self.defense = Point("defense")
         self.attack = Point("attack")
@@ -78,6 +98,8 @@ class Environment:
 
         self.coords = [self.target.coordinates, self.defense.coordinates, self.attack.coordinates]
         self.radii = [self.target.radius, self.defense.radius, self.attack.radius]
+
+    
 
 env_instance = Environment()
 print("Target Coordinates:", env_instance.target.coordinates)
