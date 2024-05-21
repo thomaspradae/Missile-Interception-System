@@ -61,6 +61,10 @@ attack = Point("attack")
 attack.create_attack(target, defense)
 print("Attack Coordinates:", attack.coordinates)
 
+target.coordinates = np.array([2.06653111, 1.03181761])
+defense.coordinates = np.array([1.79647448, 0.21213456])
+attack.coordinates = np.array([-0.44465787, 5.1330371])
+
 # Some quick visualization 
 adjacent_Rcoordinates = np.array([target.coordinates[0], attack.coordinates[1]])
 
@@ -153,40 +157,40 @@ plt.text(intercept_point[0], intercept_point[1], 'I', ha='right')
 # plt.text(intercept_point[0], intercept_point[1] + offset, 'I', ha='center')
 
 plt.show()
-# # Create an empty DataFrame to store the results
-columns = ['Target_X', 'Target_Y', 'Defense_X', 'Defense_Y', 'Attack_X', 'Attack_Y', 'Intercept_X', 'Intercept_Y']
-df = pd.DataFrame(columns=columns)
+# # # Create an empty DataFrame to store the results
+# columns = ['Target_X', 'Target_Y', 'Defense_X', 'Defense_Y', 'Attack_X', 'Attack_Y', 'Intercept_X', 'Intercept_Y']
+# df = pd.DataFrame(columns=columns)
 
-# Number of iterations
-num_iterations = 100000
+# # Number of iterations
+# num_iterations = 100000
 
-for i in range(num_iterations):
-    target = Point("target")
-    target.create_target()
+# for i in range(num_iterations):
+#     target = Point("target")
+#     target.create_target()
 
-    defense = Point("defense")
-    defense.create_defense(target)
+#     defense = Point("defense")
+#     defense.create_defense(target)
 
-    attack = Point("attack")
-    attack.create_attack(target, defense)
+#     attack = Point("attack")
+#     attack.create_attack(target, defense)
 
-    intercept_point = intercept(defense, attack, target)
-    print("Itteration no:", i)
+#     intercept_point = intercept(defense, attack, target)
+#     print("Itteration no:", i)
 
-    # Append data to the DataFrame
-    df = df.append({
-        'Target_X': target.coordinates[0],
-        'Target_Y': target.coordinates[1],
-        'Defense_X': defense.coordinates[0],
-        'Defense_Y': defense.coordinates[1],
-        'Attack_X': attack.coordinates[0],
-        'Attack_Y': attack.coordinates[1],
-        'Intercept_X': intercept_point[0],
-        'Intercept_Y': intercept_point[1],
-    }, ignore_index=True)
+#     # Append data to the DataFrame
+#     df = df.append({
+#         'Target_X': target.coordinates[0],
+#         'Target_Y': target.coordinates[1],
+#         'Defense_X': defense.coordinates[0],
+#         'Defense_Y': defense.coordinates[1],
+#         'Attack_X': attack.coordinates[0],
+#         'Attack_Y': attack.coordinates[1],
+#         'Intercept_X': intercept_point[0],
+#         'Intercept_Y': intercept_point[1],
+#     }, ignore_index=True)
 
 
-# Now df contains your data for 100,000 iterations
-print(df)
+# # Now df contains your data for 100,000 iterations
+# print(df)
 
-df.to_csv("100k_iterations_v2.csv")
+# df.to_csv("100k_iterations_v2.csv")
