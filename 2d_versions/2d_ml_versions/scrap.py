@@ -1,14 +1,36 @@
-def distance_reward(reward, defense_missiles):
-    payment_ponderations = [1, 0.9, 0.85, 0.75, 0.65, 0.55, 0.35, 0.25, 0.15, 0.05]
-    max_index = len(payment_ponderations) - 1
+import numpy as np
 
-    for i, missile in enumerate(defense_missiles):
-        missile.reward_diff = missile.start_distance - missile.defense_missile_to_attack_missile
-        if missile.reward_diff > 0:
-            ponderation = payment_ponderations[i] if i <= max_index else 0
-            missile.reward_diff *= ponderation
-        reward += missile.reward_diff
-    
-    return reward
+# Define coordinates and actions
+coord_attack = np.array([0, 0])
+coord_defend = np.array([1, 1])
+coord_target = np.array([2, 2])
 
+coords = [coord_attack, coord_defend, coord_target]
+actions = [
+    ((0, None), 1),
+    ((1, None), 2),
+    ((2, None), 3)
+]
 
+# Create a dictionary entry with coordinates and actions
+my_dict = {"1": coords + actions}
+
+print(my_dict["1"])
+print(my_dict["1"][3][0][0])
+
+episode = my_dict["1"]
+print(episode)
+
+def debugger(episode):
+    coord_attacking = episode[0]
+    coord_defending = episode[1]
+    coord_target = episode[2]
+
+    print(coord_attacking)
+    print(coord_defending)
+    print(coord_target)
+
+    actions = episode[3:]
+    print(actions)
+
+debugger(episode)
