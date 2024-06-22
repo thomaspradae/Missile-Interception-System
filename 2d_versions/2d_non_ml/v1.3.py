@@ -61,9 +61,9 @@ attack = Point("attack")
 attack.create_attack(target, defense)
 print("Attack Coordinates:", attack.coordinates)
 
-target.coordinates = np.array([2.06653111, 1.03181761])
-defense.coordinates = np.array([1.79647448, 0.21213456])
-attack.coordinates = np.array([-0.44465787, 5.1330371])
+# target.coordinates = np.array([2.06653111, 1.03181761])
+# defense.coordinates = np.array([1.79647448, 0.21213456])
+# attack.coordinates = np.array([-0.44465787, 5.1330371])
 
 # Some quick visualization 
 adjacent_Rcoordinates = np.array([target.coordinates[0], attack.coordinates[1]])
