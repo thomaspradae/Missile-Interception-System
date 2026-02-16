@@ -1,0 +1,4 @@
+1. look up 
+    1.1 where am i (x, y z)
+    1.2 direction angles (where am i facing, azimuth)
+    1.3 
