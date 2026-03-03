@@ -100,3 +100,7 @@ Make the elevation angles at the start (theta) both 45.0 degs.
 
 ## 2026-03-02 13:32:04-05:00
 Remove timeout condition, leave enemy hit ground, defense hit ground or defense hit enemy
+
+## 2026-03-02 13:42:53-05:00
+Going to try to train first with static targets
+
